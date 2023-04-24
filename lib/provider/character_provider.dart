@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:rick_and_morty_provider/models/character.dart';
 import 'package:rick_and_morty_provider/services/character_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CharacterProvider extends ChangeNotifier {
   final CharacterService service = CharacterService();
@@ -20,36 +21,24 @@ class CharacterProvider extends ChangeNotifier {
   }
 
   // Favorites section
-  final List<String> _favorites = [];
+  late List<String> _favorites = [];
   List<String> get favorites => _favorites;
+
+  CharacterProvider(List<String> favList) {
+    _favorites = favList;
+  }
 
   bool isFav(String id) => _favorites.contains(id.toString());
 
-  void toggleFav({required String id}) {
+  void toggleFav({required String id}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (isFav(id)) {
       _favorites.remove(id);
     } else {
       _favorites.add(id);
     }
+
+    sharedPreferences.setStringList('fav_list', _favorites);
     notifyListeners();
   }
-
-  // void toggleFav(String id) async {
-  //   final isFav = _favoriteList.contains(id);
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-  //   if (isFav) {
-  //     _favoriteList.remove(id);
-  //   } else {
-  //     _favoriteList.add(id);
-  //   }
-
-  //   sharedPreferences.setStringList('fav_list', _favoriteList);
-  //   notifyListeners();
-  // }
-
-  // bool isFav(String id) {
-  //   final isFav = _favoriteList.contains(id);
-  //   return isFav;
-  // }
 }
