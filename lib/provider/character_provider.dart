@@ -9,6 +9,7 @@ class CharacterProvider extends ChangeNotifier {
   List<Character> get characters => _characters;
   bool isLoading = false;
   bool isBottomLoading = false;
+  bool hasMoreData = true;
   int page = 1;
 
   void init() {
@@ -18,10 +19,14 @@ class CharacterProvider extends ChangeNotifier {
   }
 
   void getCharacters() async {
-    final response = await service.getCharacters(
+    final characterList = await service.getCharacters(
       page: page,
     );
-    _characters = [..._characters, ...response];
+
+    if (characterList.length < 20) {
+      hasMoreData = false;
+    }
+    _characters = [..._characters, ...characterList];
     page++;
 
     isLoading = false;
@@ -32,6 +37,15 @@ class CharacterProvider extends ChangeNotifier {
   void fetchMoreData() {
     isBottomLoading = true;
     notifyListeners();
+    getCharacters();
+  }
+
+  Future<void> onRefresh() async {
+    hasMoreData = true;
+    page = 1;
+    _characters.clear();
+    notifyListeners();
+
     getCharacters();
   }
 

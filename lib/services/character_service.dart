@@ -18,6 +18,8 @@ class CharacterService {
           json.map((item) => Character.fromJson(item)).toList();
       return characters;
     }
+    // Handle error ()
+    print(response.statusCode);
     throw 'Something went wrong';
   }
 }

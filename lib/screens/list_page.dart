@@ -52,37 +52,45 @@ class _ListPageState extends State<ListPage> {
             );
           }
 
-          return ListView.builder(
-            controller: controller,
-            itemCount: value.characters.length + 1,
-            itemBuilder: ((context, index) {
-              if (index < value.characters.length) {
-                final Character item = value.characters[index];
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
-                  child: CardItem(
-                    character: item,
-                    onPressed: () => Navigator.of(context).push<Character>(
-                      MaterialPageRoute<Character>(
-                          builder: (BuildContext context) {
-                        return DetailPage(character: item);
-                      }),
+          return RefreshIndicator(
+            onRefresh: Provider.of<CharacterProvider>(context).onRefresh,
+            child: ListView.builder(
+              controller: controller,
+              itemCount: value.characters.length + 1,
+              itemBuilder: ((context, index) {
+                if (index < value.characters.length) {
+                  final Character item = value.characters[index];
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
+                    child: CardItem(
+                      character: item,
+                      onPressed: () => Navigator.of(context).push<Character>(
+                        MaterialPageRoute<Character>(
+                            builder: (BuildContext context) {
+                          return DetailPage(character: item);
+                        }),
+                      ),
                     ),
-                  ),
-                );
-              } else {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 32,
-                  ),
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 32,
                     ),
-                  ),
-                );
-              }
-            }),
+                    child: Center(
+                      child: value.hasMoreData
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : const Text(
+                              'No more items to load',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                    ),
+                  );
+                }
+              }),
+            ),
           );
         },
       ),
