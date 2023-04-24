@@ -53,19 +53,19 @@ class DetailPage extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(24),
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 87, 92, 102),
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                  )
-                ],
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.white.withOpacity(0.3),
+                //     spreadRadius: 1,
+                //     blurRadius: 5,
+                //   )
+                // ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,6 +76,7 @@ class DetailPage extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -114,27 +115,54 @@ class InfoSection extends StatelessWidget {
               children: [
                 const Padding(
                   padding: EdgeInsets.all(8),
-                  child: Text('Species'),
+                  child: Text(
+                    'Species',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
                 Text(
                   character.species,
-                ),
-              ],
-            ),
-            TableRow(
-              children: [
-                const Padding(padding: EdgeInsets.all(8), child: Text('Type')),
-                Text(
-                  character.type == '' ? 'N/A' : character.type,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
             TableRow(
               children: [
                 const Padding(
-                    padding: EdgeInsets.all(8), child: Text('Gender')),
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      'Type',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    )),
+                Text(
+                  character.type == '' ? 'N/A' : character.type,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+            TableRow(
+              children: [
+                const Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      'Gender',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    )),
                 Text(
                   character.gender,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -161,17 +189,22 @@ class PropertyTitle extends StatelessWidget {
           child: Container(
               margin: const EdgeInsets.only(left: 10.0, right: 20.0),
               child: const Divider(
-                color: Colors.black,
+                color: Colors.white,
                 height: 36,
                 indent: 32,
               )),
         ),
-        Text(title.toUpperCase()),
+        Text(
+          title.toUpperCase(),
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
         Expanded(
           child: Container(
             margin: const EdgeInsets.only(left: 20.0, right: 10.0),
             child: const Divider(
-              color: Colors.black,
+              color: Colors.white,
               height: 36,
               endIndent: 32,
             ),

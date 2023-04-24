@@ -8,16 +8,31 @@ class CharacterProvider extends ChangeNotifier {
   List<Character> _characters = [];
   List<Character> get characters => _characters;
   bool isLoading = false;
+  bool isBottomLoading = false;
+  int page = 1;
 
-  void getCharacters() async {
+  void init() {
     isLoading = true;
     notifyListeners();
+    getCharacters();
+  }
 
-    final response = await service.getCharacters();
-    _characters = response;
+  void getCharacters() async {
+    final response = await service.getCharacters(
+      page: page,
+    );
+    _characters = [..._characters, ...response];
+    page++;
 
     isLoading = false;
+    isBottomLoading = false;
     notifyListeners();
+  }
+
+  void fetchMoreData() {
+    isBottomLoading = true;
+    notifyListeners();
+    getCharacters();
   }
 
   // Favorites section

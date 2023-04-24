@@ -13,15 +13,29 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
+  final controller = ScrollController();
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        Provider.of<CharacterProvider>(context, listen: false).getCharacters();
+        Provider.of<CharacterProvider>(context, listen: false).init();
       },
     );
 
     super.initState();
+
+    controller.addListener(() {
+      if (controller.position.maxScrollExtent == controller.offset) {
+        Provider.of<CharacterProvider>(context, listen: false).fetchMoreData();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -39,21 +53,35 @@ class _ListPageState extends State<ListPage> {
           }
 
           return ListView.builder(
-            itemCount: value.characters.length,
+            controller: controller,
+            itemCount: value.characters.length + 1,
             itemBuilder: ((context, index) {
-              final Character item = value.characters[index];
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
-                child: CardItem(
-                  character: item,
-                  onPressed: () => Navigator.of(context).push<Character>(
-                    MaterialPageRoute<Character>(
-                        builder: (BuildContext context) {
-                      return DetailPage(character: item);
-                    }),
+              if (index < value.characters.length) {
+                final Character item = value.characters[index];
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
+                  child: CardItem(
+                    character: item,
+                    onPressed: () => Navigator.of(context).push<Character>(
+                      MaterialPageRoute<Character>(
+                          builder: (BuildContext context) {
+                        return DetailPage(character: item);
+                      }),
+                    ),
                   ),
-                ),
-              );
+                );
+              } else {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 32,
+                  ),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  ),
+                );
+              }
             }),
           );
         },
@@ -97,6 +125,9 @@ class CardItem extends StatelessWidget {
                   maxHeight: MediaQuery.of(context).size.width * 0.28,
                 ),
                 child: Container(
+                  // TODO: Fix this to make it responsive?
+                  height: 130,
+                  width: 130,
                   clipBehavior: Clip.hardEdge,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -136,6 +167,7 @@ class CardItem extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.circle,
+                                // TODO: Hay tres status disponibles, hacer un switch
                                 color: character.status == 'Alive'
                                     ? Colors.lightGreen
                                     : Colors.red,
