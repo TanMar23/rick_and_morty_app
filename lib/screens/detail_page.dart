@@ -17,12 +17,13 @@ class DetailPage extends StatelessWidget {
     final CharacterProvider provider = Provider.of<CharacterProvider>(context);
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(39, 43, 51, 1),
+      backgroundColor: const Color.fromRGBO(32, 35, 41, 1),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
+            splashRadius: 20,
             onPressed: () {
               provider.toggleFav(id: character.id.toString());
             },
@@ -31,7 +32,7 @@ class DetailPage extends StatelessWidget {
                     Icons.favorite,
                     color: Colors.red,
                   )
-                : const Icon(Icons.favorite_border),
+                : const Icon(Icons.favorite_border, color: Colors.grey),
           ),
         ],
       ),
@@ -39,7 +40,7 @@ class DetailPage extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.symmetric(vertical: 16),
             child: Column(
               children: <Widget>[
                 CircleAvatarImg(
@@ -49,23 +50,20 @@ class DetailPage extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(height: 40),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+                vertical: 40,
+              ),
               width: double.infinity,
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 87, 92, 102),
+                color: Color.fromRGBO(59, 62, 67, 1),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
                 ),
-                // boxShadow: [
-                //   BoxShadow(
-                //     color: Colors.white.withOpacity(0.3),
-                //     spreadRadius: 1,
-                //     blurRadius: 5,
-                //   )
-                // ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,6 +78,7 @@ class DetailPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 12),
                   InfoSection(character: character),
                 ],
               ),
@@ -103,7 +102,10 @@ class InfoSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const PropertyTitle(title: 'PROPERTIES'),
+        Divider(
+          color: Colors.grey.shade400,
+          height: 24,
+        ),
         Table(
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
           columnWidths: const {
@@ -111,60 +113,30 @@ class InfoSection extends StatelessWidget {
             1: FlexColumnWidth(2),
           },
           children: [
-            TableRow(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    'Species',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Text(
-                  character.species,
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+            getTableRow(
+              description: character.species,
+              icon: Icons.accessibility_outlined,
+              title: 'Species',
             ),
-            TableRow(
-              children: [
-                const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Type',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    )),
-                Text(
-                  character.type == '' ? 'N/A' : character.type,
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+            getTableRow(
+              title: 'Type',
+              description: character.type == '' ? 'N/A' : character.type,
+              icon: Icons.science_outlined,
             ),
-            TableRow(
-              children: [
-                const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      'Gender',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    )),
-                Text(
-                  character.gender,
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+            getTableRow(
+              title: 'Gender',
+              description: character.gender,
+              icon: getGenderIcon(gender: character.gender),
+            ),
+            getTableRow(
+              title: 'Origin',
+              description: character.origin,
+              icon: Icons.public_outlined,
+            ),
+            getTableRow(
+              title: 'Location',
+              description: character.location,
+              icon: Icons.location_on_outlined,
             ),
           ],
         ),
@@ -173,46 +145,36 @@ class InfoSection extends StatelessWidget {
   }
 }
 
-class PropertyTitle extends StatelessWidget {
-  const PropertyTitle({
-    super.key,
-    required this.title,
-  });
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-              child: const Divider(
-                color: Colors.white,
-                height: 36,
-                indent: 32,
-              )),
-        ),
-        Text(
-          title.toUpperCase(),
-          style: const TextStyle(
-            color: Colors.white,
+TableRow getTableRow({
+  required String description,
+  required IconData? icon,
+  required String title,
+}) {
+  return TableRow(
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: Row(children: [
+          Icon(
+            icon,
+            color: Colors.grey.shade300,
           ),
-        ),
-        Expanded(
-          child: Container(
-            margin: const EdgeInsets.only(left: 20.0, right: 10.0),
-            child: const Divider(
-              color: Colors.white,
-              height: 36,
-              endIndent: 32,
-            ),
+          const SizedBox(width: 16),
+          Text(
+            title,
+            style: TextStyle(color: Colors.grey.shade300),
           ),
+        ]),
+      ),
+      Text(
+        description,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
 }
 
 class CircleAvatarImg extends StatelessWidget {
@@ -231,9 +193,8 @@ class CircleAvatarImg extends StatelessWidget {
       alignment: AlignmentDirectional.center,
       children: [
         CircleAvatar(
-          backgroundColor:
-              status == 'Alive' ? Colors.lightGreenAccent : Colors.red,
-          radius: 113,
+          backgroundColor: getStatusColor(status: status),
+          radius: 114,
           child: CircleAvatar(
             backgroundImage: NetworkImage(img),
             radius: 110,
@@ -247,7 +208,7 @@ class CircleAvatarImg extends StatelessWidget {
               horizontal: 8,
             ),
             decoration: BoxDecoration(
-              color: status == 'Alive' ? Colors.lightGreen : Colors.red,
+              color: getStatusColor(status: status),
               borderRadius: const BorderRadius.all(
                 Radius.circular(8),
               ),
@@ -265,6 +226,7 @@ class CircleAvatarImg extends StatelessWidget {
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
+                fontSize: 16,
               ),
             )),
           ),
@@ -272,4 +234,37 @@ class CircleAvatarImg extends StatelessWidget {
       ],
     );
   }
+}
+
+Color getStatusColor({required String status}) {
+  Color colorStatus;
+  switch (status) {
+    case 'Alive':
+      colorStatus = const Color(0xFF55CB44);
+      break;
+    case 'Dead':
+      colorStatus = Colors.red;
+      break;
+    case 'unknown':
+      colorStatus = const Color(0xFFFF9800);
+      break;
+    default:
+      colorStatus = Colors.black;
+  }
+  return colorStatus;
+}
+
+IconData getGenderIcon({required String gender}) {
+  IconData genderIcon;
+  switch (gender) {
+    case 'Male':
+      genderIcon = Icons.male_outlined;
+      break;
+    case 'Female':
+      genderIcon = Icons.female_outlined;
+      break;
+    default:
+      genderIcon = Icons.transgender_outlined;
+  }
+  return genderIcon;
 }

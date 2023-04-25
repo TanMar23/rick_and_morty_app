@@ -152,13 +152,18 @@ class CardItem extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                      child: Text(
-                        character.name,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                      padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
+                      child: Flexible(
+                        child: Text(
+                          character.name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.fade,
+                          softWrap: false,
+                          maxLines: 1,
                         ),
                       ),
                     ),
@@ -166,7 +171,7 @@ class CardItem extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(5, 10, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(16, 12, 0, 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -175,23 +180,37 @@ class CardItem extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.circle,
-                                // TODO: Hay tres status disponibles, hacer un switch
-                                color: character.status == 'Alive'
-                                    ? Colors.lightGreen
-                                    : Colors.red,
+                                color: getStatusColor(status: character.status),
                                 size: 12,
                               ),
                               const SizedBox(width: 6),
                               Text(
-                                character.status,
-                                style: const TextStyle(color: Colors.white),
+                                character.status.substring(0, 1).toUpperCase() +
+                                    character.status.substring(1).toLowerCase(),
+                                style: TextStyle(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                '-',
+                                style: TextStyle(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                '# ${character.id.toString()}',
+                                style: TextStyle(
+                                  color: Colors.grey.shade300,
+                                ),
                               ),
                             ],
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            character.species.toUpperCase(),
-                            style: const TextStyle(color: Colors.white),
+                            character.species,
+                            style: TextStyle(color: Colors.grey.shade300),
                           ),
                         ],
                       ),
@@ -202,8 +221,9 @@ class CardItem extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                     child: IconButton(
+                      splashRadius: 20,
                       onPressed: () {
                         provider.toggleFav(id: character.id.toString());
                       },
@@ -226,4 +246,22 @@ class CardItem extends StatelessWidget {
       ),
     );
   }
+}
+
+Color getStatusColor({required String status}) {
+  Color colorStatus;
+  switch (status) {
+    case 'Alive':
+      colorStatus = const Color(0xFF55CB44);
+      break;
+    case 'Dead':
+      colorStatus = Colors.red;
+      break;
+    case 'unknown':
+      colorStatus = const Color(0xFFFF9800);
+      break;
+    default:
+      colorStatus = Colors.black;
+  }
+  return colorStatus;
 }
