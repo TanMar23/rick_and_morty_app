@@ -49,7 +49,33 @@ class CardItem extends StatelessWidget {
                       bottomLeft: Radius.circular(12),
                     ),
                   ),
-                  child: Image.network(character.image, fit: BoxFit.fill),
+                  child: Stack(children: [
+                    Image.network(character.image, fit: BoxFit.fill),
+                    Positioned(
+                      bottom: 6,
+                      right: 6,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 4,
+                        ),
+                        decoration: const BoxDecoration(
+                          color: Color.fromRGBO(59, 62, 67, 1),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(6),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            '${get3DigitsId(id: character.id.toString())}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ]),
                 ),
               ),
               Column(
@@ -93,20 +119,6 @@ class CardItem extends StatelessWidget {
                               Text(
                                 character.status.substring(0, 1).toUpperCase() +
                                     character.status.substring(1).toLowerCase(),
-                                style: TextStyle(
-                                  color: Colors.grey.shade300,
-                                ),
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                '-',
-                                style: TextStyle(
-                                  color: Colors.grey.shade300,
-                                ),
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                '# ${character.id.toString()}',
                                 style: TextStyle(
                                   color: Colors.grey.shade300,
                                 ),
@@ -170,4 +182,14 @@ Color getStatusColor({required String status}) {
       colorStatus = Colors.black;
   }
   return colorStatus;
+}
+
+get3DigitsId({required String id}) {
+  if (id.characters.length == 1) {
+    return '00$id';
+  } else if (id.characters.length == 2) {
+    return '0$id';
+  } else {
+    return id;
+  }
 }

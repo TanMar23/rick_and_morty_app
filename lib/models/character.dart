@@ -9,6 +9,7 @@ class Character {
     required this.image,
     required this.location,
     required this.origin,
+    required this.episodesList,
   });
 
   factory Character.fromJson(Map<String, dynamic> json) => Character(
@@ -21,6 +22,8 @@ class Character {
         image: json['image'],
         origin: json['origin']['name'],
         location: json['location']['name'],
+        episodesList:
+            (json['episode'] as List<dynamic>).map((e) => e as String).toList(),
       );
 
   final int id;
@@ -32,4 +35,5 @@ class Character {
   final String image;
   final String origin;
   final String location;
+  final List<String> episodesList;
 }

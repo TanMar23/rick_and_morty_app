@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:rick_and_morty_provider/models/character.dart';
+import 'package:rick_and_morty_provider/models/episode.dart';
 import 'package:rick_and_morty_provider/services/character_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../services/episode_service.dart';
+
 class CharacterProvider extends ChangeNotifier {
-  final CharacterService service = CharacterService();
+  final CharacterService characterService = CharacterService();
   List<Character> _characters = [];
   List<Character> get characters => _characters;
   bool isLoading = false;
@@ -19,7 +22,7 @@ class CharacterProvider extends ChangeNotifier {
   }
 
   void getCharacters() async {
-    final characterList = await service.getCharacters(
+    final characterList = await characterService.getCharacters(
       page: page,
     );
 
@@ -68,6 +71,42 @@ class CharacterProvider extends ChangeNotifier {
     }
 
     sharedPreferences.setStringList('fav_list', _favorites);
+    notifyListeners();
+  }
+
+  // Episodes section
+  final EpisodesService episodeService = EpisodesService();
+  List<Episode> _episodes = [];
+  List<Episode> get episodes => _episodes;
+  bool isLoadingEpisodes = false;
+
+  void initDetailPage({required List<String> episodesList}) {
+    final List<String> episodesPerCharacter =
+        episodesList.map((e) => e).toList();
+
+    String getEpisodesList() {
+      String result = '';
+      for (var i = 0; i != episodesPerCharacter.length; i++) {
+        String dt = episodesPerCharacter[i];
+        dt = dt.substring(40);
+        result = '$result$dt,';
+      }
+      return result;
+    }
+
+    isLoadingEpisodes = true;
+    getEpisodes(getEpisodesList: getEpisodesList());
+    notifyListeners();
+  }
+
+  void getEpisodes({required String getEpisodesList}) async {
+    final episodesList = await episodeService.getEpisodesByCharacter(
+      getEpisodesList: getEpisodesList,
+    );
+
+    _episodes = episodesList;
+
+    isLoadingEpisodes = false;
     notifyListeners();
   }
 }
