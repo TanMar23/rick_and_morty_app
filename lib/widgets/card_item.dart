@@ -82,15 +82,17 @@ class CardItem extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
-                      child: Flexible(
-                        child: Text(
-                          character.name,
-                          style: Theme.of(context).textTheme.headline2,
-                          overflow: TextOverflow.fade,
-                          softWrap: false,
-                          maxLines: 1,
+                      child: Flex(direction: Axis.horizontal, children: [
+                        Flexible(
+                          child: Text(
+                            character.name,
+                            style: Theme.of(context).textTheme.headline2,
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
+                            maxLines: 1,
+                          ),
                         ),
-                      ),
+                      ]),
                     ),
                   ),
                   SizedBox(

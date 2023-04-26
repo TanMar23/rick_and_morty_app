@@ -73,10 +73,14 @@ class _DetailPageState extends State<DetailPage> {
                       status: widget.character.status,
                     ),
                     const SizedBox(height: 24),
-                    Center(
-                      child: Text(
-                        widget.character.name,
-                        style: Theme.of(context).textTheme.headline1,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Center(
+                        child: Text(
+                          widget.character.name,
+                          style: Theme.of(context).textTheme.headline1,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ],

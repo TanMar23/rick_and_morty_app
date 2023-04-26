@@ -19,7 +19,6 @@ class CharacterService {
       return characters;
     }
     // Handle error ()
-    print(response.statusCode);
     throw 'Something went wrong';
   }
 }
