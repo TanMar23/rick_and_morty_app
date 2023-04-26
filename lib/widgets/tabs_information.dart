@@ -115,13 +115,13 @@ class InfoSection extends StatelessWidget {
             ),
             getTableRow(
               title: 'Origin',
-              description: character.origin,
+              description: character.origin.name,
               icon: Icons.public_outlined,
               context: context,
             ),
             getTableRow(
               title: 'Location',
-              description: character.location,
+              description: character.location.name,
               icon: Icons.location_on_outlined,
               context: context,
             ),

@@ -25,7 +25,7 @@ class _DetailPageState extends State<DetailPage> {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         Provider.of<CharacterProvider>(context, listen: false)
-            .initDetailPage(episodesList: widget.character.episodesList);
+            .initDetailPage(episodesList: widget.character.episode);
       },
     );
     super.initState();
