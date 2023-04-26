@@ -35,11 +35,10 @@ class CardItem extends StatelessWidget {
             children: <Widget>[
               ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.28,
-                  maxHeight: MediaQuery.of(context).size.width * 0.28,
+                  maxWidth: MediaQuery.of(context).size.width * 0.26,
+                  maxHeight: MediaQuery.of(context).size.width * 0.26,
                 ),
                 child: Container(
-                  // TODO: Fix this to make it responsive?
                   height: 130,
                   width: 130,
                   clipBehavior: Clip.hardEdge,
@@ -52,8 +51,8 @@ class CardItem extends StatelessWidget {
                   child: Stack(children: [
                     Image.network(character.image, fit: BoxFit.fill),
                     Positioned(
-                      bottom: 6,
-                      right: 6,
+                      bottom: 5,
+                      right: 5,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                           vertical: 4,
@@ -75,76 +74,68 @@ class CardItem extends StatelessWidget {
                   ]),
                 ),
               ),
+              const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
-                      child: Flex(direction: Axis.horizontal, children: [
-                        Flexible(
-                          child: Text(
-                            character.name,
-                            style: Theme.of(context).textTheme.headline2,
-                            overflow: TextOverflow.fade,
-                            softWrap: false,
-                            maxLines: 1,
-                          ),
-                        ),
-                      ]),
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 12, 0, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.circle,
-                                color: getStatusColor(status: character.status),
-                                size: 12,
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Flex(
+                          direction: Axis.horizontal,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                character.name,
+                                style: Theme.of(context).textTheme.headline2,
+                                overflow: TextOverflow.fade,
+                                softWrap: false,
+                                maxLines: 1,
                               ),
-                              const SizedBox(width: 6),
-                              Text(
-                                character.status.substring(0, 1).toUpperCase() +
-                                    character.status.substring(1).toLowerCase(),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            character.species,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-                    child: IconButton(
-                      splashRadius: 20,
-                      onPressed: () {
-                        provider.toggleFav(id: character.id.toString());
-                      },
-                      icon: provider.isFav(character.id.toString())
-                          ? const Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                            )
-                          : const Icon(
-                              Icons.favorite_border,
-                              color: Colors.grey,
                             ),
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        splashRadius: 20,
+                        onPressed: () {
+                          provider.toggleFav(id: character.id.toString());
+                        },
+                        icon: provider.isFav(character.id.toString())
+                            ? const Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                              )
+                            : const Icon(
+                                Icons.favorite_border,
+                                color: Colors.grey,
+                              ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.circle,
+                          color: getStatusColor(status: character.status),
+                          size: 12,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          character.status.substring(0, 1).toUpperCase() +
+                              character.status.substring(1).toLowerCase(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Text(
+                      character.species,
                     ),
                   ),
                 ],

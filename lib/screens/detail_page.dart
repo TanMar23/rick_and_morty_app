@@ -73,7 +73,7 @@ class _DetailPageState extends State<DetailPage> {
                       img: widget.character.image,
                       status: widget.character.status,
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 12),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Center(
@@ -87,7 +87,6 @@ class _DetailPageState extends State<DetailPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
               Expanded(
                 child: TabsInformation(
                   character: widget.character,

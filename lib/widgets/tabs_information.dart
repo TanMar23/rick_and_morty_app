@@ -36,7 +36,8 @@ class TabsInformation extends StatelessWidget {
         body: TabBarView(children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: InfoSection(character: character),
+            child:
+                SingleChildScrollView(child: InfoSection(character: character)),
           ),
           EpisodesSection(episodes: episodes)
         ]),

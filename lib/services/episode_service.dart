@@ -18,9 +18,10 @@ class EpisodesService {
             json.map((item) => Episode.fromJson(item)).toList();
         return episodes;
       }
-      throw 'Something went wrong:';
+      throw Exception(
+          'Something went wrong fetching episodes: ${response.statusCode}');
     } catch (e) {
-      throw 'Something went wrong: $e';
+      throw Exception('Something went wrong fetching episodes: $e');
     }
   }
 }

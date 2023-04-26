@@ -17,10 +17,10 @@ class CircleAvatarImg extends StatelessWidget {
       children: [
         CircleAvatar(
           backgroundColor: getStatusColor(status: status),
-          radius: 114,
+          radius: 104,
           child: CircleAvatar(
             backgroundImage: NetworkImage(img),
-            radius: 110,
+            radius: 100,
           ),
         ),
         Positioned(

@@ -11,7 +11,7 @@ class FavoritesProvider extends ChangeNotifier {
 
   bool isFav(String id) => _favorites.contains(id.toString());
 
-  void toggleFav({required String id}) async {
+  Future<void> toggleFav({required String id}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (isFav(id)) {
       _favorites.remove(id);

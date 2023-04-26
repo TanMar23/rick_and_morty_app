@@ -3,13 +3,16 @@ import 'package:rick_and_morty_provider/models/character.dart';
 import 'package:rick_and_morty_provider/services/character_service.dart';
 
 class CharacterProvider extends ChangeNotifier {
-  final CharacterService characterService = CharacterService();
+  final CharacterService characterService;
+
   List<Character> _characters = [];
   List<Character> get characters => _characters;
   bool isLoading = false;
   bool isBottomLoading = false;
   bool hasMoreData = true;
   int page = 1;
+
+  CharacterProvider({required this.characterService});
 
   void init() {
     isLoading = true;
