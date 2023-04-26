@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:rick_and_morty_provider/provider/character_provider.dart';
+import 'package:rick_and_morty_provider/provider/detail_provider.dart';
+import 'package:rick_and_morty_provider/provider/favorites_provider.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/splash_page.dart';
@@ -24,8 +28,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CharacterProvider>(
-      create: (BuildContext context) => CharacterProvider(favList),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CharacterProvider()),
+        ChangeNotifierProvider(create: (_) => DetailProvider()),
+        ChangeNotifierProvider(create: (_) => FavoritesProvider(favList)),
+      ],
       child: MaterialApp(
         title: 'Rick and Morty with Provider',
         debugShowCheckedModeBanner: false,

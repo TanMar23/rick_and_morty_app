@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rick_and_morty_provider/provider/detail_provider.dart';
+import 'package:rick_and_morty_provider/provider/favorites_provider.dart';
 
 import '../models/character.dart';
-import '../provider/character_provider.dart';
 import '../widgets/circle_avatar_img.dart';
 
 import '../widgets/tabs_information.dart';
@@ -24,7 +25,7 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        Provider.of<CharacterProvider>(context, listen: false)
+        Provider.of<DetailProvider>(context, listen: false)
             .initDetailPage(episodesList: widget.character.episode);
       },
     );
@@ -33,7 +34,7 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final CharacterProvider provider = Provider.of<CharacterProvider>(context);
+    final FavoritesProvider provider = Provider.of<FavoritesProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +55,7 @@ class _DetailPageState extends State<DetailPage> {
           ),
         ],
       ),
-      body: Consumer<CharacterProvider>(
+      body: Consumer<DetailProvider>(
         builder: (BuildContext context, value, child) {
           if (value.isLoadingEpisodes) {
             return const Center(
@@ -90,7 +91,7 @@ class _DetailPageState extends State<DetailPage> {
               Expanded(
                 child: TabsInformation(
                   character: widget.character,
-                  episodes: provider.episodes,
+                  episodes: value.episodes,
                 ),
               ),
             ],

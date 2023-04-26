@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rick_and_morty_provider/provider/favorites_provider.dart';
 
 import '../models/character.dart';
-import '../provider/character_provider.dart';
 
 class CardItem extends StatelessWidget {
   const CardItem({
@@ -16,7 +16,7 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CharacterProvider provider = Provider.of<CharacterProvider>(context);
+    final FavoritesProvider provider = Provider.of<FavoritesProvider>(context);
 
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.94,
