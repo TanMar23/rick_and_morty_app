@@ -46,11 +46,7 @@ class CircleAvatarImg extends StatelessWidget {
             child: Center(
                 child: Text(
               status.toUpperCase(),
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-              ),
+              style: Theme.of(context).textTheme.labelMedium,
             )),
           ),
         ),

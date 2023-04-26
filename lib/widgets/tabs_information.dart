@@ -30,8 +30,6 @@ class TabsInformation extends StatelessWidget {
           automaticallyImplyLeading: false,
           title: const TabBar(
             tabs: myTabs,
-            labelColor: Colors.amber,
-            unselectedLabelColor: Colors.white,
             indicatorColor: Colors.amber,
           ),
         ),
@@ -64,18 +62,13 @@ class EpisodesSection extends StatelessWidget {
         return ListTile(
           leading: Text(
             '${episode.id}',
-            style: TextStyle(color: Colors.grey.shade300),
           ),
           title: Text(
             episode.name,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-            ),
           ),
           subtitle: Text(
             episode.airDate,
-            style: TextStyle(color: Colors.grey.shade300),
+            style: Theme.of(context).textTheme.subtitle2,
           ),
         );
       }),
@@ -106,26 +99,31 @@ class InfoSection extends StatelessWidget {
               description: character.species,
               icon: Icons.accessibility_outlined,
               title: 'Species',
+              context: context,
             ),
             getTableRow(
               title: 'Type',
               description: character.type == '' ? 'N/A' : character.type,
               icon: Icons.science_outlined,
+              context: context,
             ),
             getTableRow(
               title: 'Gender',
               description: character.gender,
               icon: getGenderIcon(gender: character.gender),
+              context: context,
             ),
             getTableRow(
               title: 'Origin',
               description: character.origin,
               icon: Icons.public_outlined,
+              context: context,
             ),
             getTableRow(
               title: 'Location',
               description: character.location,
               icon: Icons.location_on_outlined,
+              context: context,
             ),
           ],
         ),
@@ -138,6 +136,7 @@ TableRow getTableRow({
   required String description,
   required IconData? icon,
   required String title,
+  required BuildContext context,
 }) {
   return TableRow(
     children: [
@@ -146,21 +145,15 @@ TableRow getTableRow({
         child: Row(children: [
           Icon(
             icon,
-            color: Colors.grey.shade300,
+            color: Colors.grey,
           ),
           const SizedBox(width: 16),
-          Text(
-            title,
-            style: TextStyle(color: Colors.grey.shade300),
-          ),
+          Text(title),
         ]),
       ),
       Text(
         description,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w500,
-        ),
+        style: Theme.of(context).textTheme.subtitle1,
       ),
     ],
   );

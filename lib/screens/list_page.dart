@@ -80,7 +80,6 @@ class _ListPageState extends State<ListPage> {
                           ? const CircularProgressIndicator()
                           : const Text(
                               'No more items to load',
-                              style: TextStyle(color: Colors.white),
                             ),
                     ),
                   );

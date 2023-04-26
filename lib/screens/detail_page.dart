@@ -50,7 +50,7 @@ class _DetailPageState extends State<DetailPage> {
                     Icons.favorite,
                     color: Colors.red,
                   )
-                : const Icon(Icons.favorite_border, color: Colors.grey),
+                : const Icon(Icons.favorite_border, color: Colors.white),
           ),
         ],
       ),
@@ -76,11 +76,7 @@ class _DetailPageState extends State<DetailPage> {
                     Center(
                       child: Text(
                         widget.character.name,
-                        style: const TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                        style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
                   ],

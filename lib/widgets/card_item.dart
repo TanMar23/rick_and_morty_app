@@ -68,9 +68,6 @@ class CardItem extends StatelessWidget {
                         child: Center(
                           child: Text(
                             '${get3DigitsId(id: character.id.toString())}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
                           ),
                         ),
                       ),
@@ -88,11 +85,7 @@ class CardItem extends StatelessWidget {
                       child: Flexible(
                         child: Text(
                           character.name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.headline2,
                           overflow: TextOverflow.fade,
                           softWrap: false,
                           maxLines: 1,
@@ -119,16 +112,12 @@ class CardItem extends StatelessWidget {
                               Text(
                                 character.status.substring(0, 1).toUpperCase() +
                                     character.status.substring(1).toLowerCase(),
-                                style: TextStyle(
-                                  color: Colors.grey.shade300,
-                                ),
                               ),
                             ],
                           ),
                           const SizedBox(height: 12),
                           Text(
                             character.species,
-                            style: TextStyle(color: Colors.grey.shade300),
                           ),
                         ],
                       ),
