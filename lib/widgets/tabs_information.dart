@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_provider/models/episode.dart';
+import 'package:rick_and_morty_provider/utils/utils.dart';
 
 import '../models/character.dart';
 
@@ -111,7 +112,7 @@ class InfoSection extends StatelessWidget {
             getTableRow(
               title: 'Gender',
               description: character.gender,
-              icon: getGenderIcon(gender: character.gender),
+              icon: UiUtils.getGenderIcon(gender: character.gender),
               context: context,
             ),
             getTableRow(
@@ -158,19 +159,4 @@ TableRow getTableRow({
       ),
     ],
   );
-}
-
-IconData getGenderIcon({required String gender}) {
-  IconData genderIcon;
-  switch (gender) {
-    case 'Male':
-      genderIcon = Icons.male_outlined;
-      break;
-    case 'Female':
-      genderIcon = Icons.female_outlined;
-      break;
-    default:
-      genderIcon = Icons.transgender_outlined;
-  }
-  return genderIcon;
 }

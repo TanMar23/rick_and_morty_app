@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_provider/utils/utils.dart';
 
 class CircleAvatarImg extends StatelessWidget {
   const CircleAvatarImg({
@@ -16,7 +17,7 @@ class CircleAvatarImg extends StatelessWidget {
       alignment: AlignmentDirectional.center,
       children: [
         CircleAvatar(
-          backgroundColor: getStatusColor(status: status),
+          backgroundColor: UiUtils.getStatusColor(status: status),
           radius: 104,
           child: CircleAvatar(
             backgroundImage: NetworkImage(img),
@@ -31,7 +32,7 @@ class CircleAvatarImg extends StatelessWidget {
               horizontal: 8,
             ),
             decoration: BoxDecoration(
-              color: getStatusColor(status: status),
+              color: UiUtils.getStatusColor(status: status),
               borderRadius: const BorderRadius.all(
                 Radius.circular(8),
               ),
@@ -53,22 +54,4 @@ class CircleAvatarImg extends StatelessWidget {
       ],
     );
   }
-}
-
-Color getStatusColor({required String status}) {
-  Color colorStatus;
-  switch (status) {
-    case 'Alive':
-      colorStatus = const Color(0xFF55CB44);
-      break;
-    case 'Dead':
-      colorStatus = Colors.red;
-      break;
-    case 'unknown':
-      colorStatus = const Color(0xFFFF9800);
-      break;
-    default:
-      colorStatus = Colors.black;
-  }
-  return colorStatus;
 }

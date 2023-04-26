@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty_provider/provider/favorites_provider.dart';
+import 'package:rick_and_morty_provider/utils/utils.dart';
 
 import '../models/character.dart';
 
@@ -66,7 +67,9 @@ class CardItem extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            '${get3DigitsId(id: character.id.toString())}',
+                            UiUtils.convertToThreeDigits(
+                              id: character.id.toString(),
+                            ),
                           ),
                         ),
                       ),
@@ -120,7 +123,8 @@ class CardItem extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.circle,
-                          color: getStatusColor(status: character.status),
+                          color:
+                              UiUtils.getStatusColor(status: character.status),
                           size: 12,
                         ),
                         const SizedBox(width: 6),
@@ -145,33 +149,5 @@ class CardItem extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-Color getStatusColor({required String status}) {
-  Color colorStatus;
-  switch (status) {
-    case 'Alive':
-      colorStatus = const Color(0xFF55CB44);
-      break;
-    case 'Dead':
-      colorStatus = Colors.red;
-      break;
-    case 'unknown':
-      colorStatus = const Color(0xFFFF9800);
-      break;
-    default:
-      colorStatus = Colors.black;
-  }
-  return colorStatus;
-}
-
-get3DigitsId({required String id}) {
-  if (id.characters.length == 1) {
-    return '00$id';
-  } else if (id.characters.length == 2) {
-    return '0$id';
-  } else {
-    return id;
   }
 }
