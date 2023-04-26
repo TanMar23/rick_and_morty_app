@@ -28,39 +28,57 @@ class TabsInformation extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           automaticallyImplyLeading: false,
-          title: TabBar(
+          title: const TabBar(
             tabs: myTabs,
             labelColor: Colors.amber,
-            unselectedLabelColor: Colors.grey.shade400,
+            unselectedLabelColor: Colors.white,
             indicatorColor: Colors.amber,
           ),
         ),
         body: TabBarView(children: [
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: InfoSection(character: character)),
-          ListView.builder(
-            itemCount: episodes.length,
-            itemBuilder: ((context, index) {
-              final episode = episodes[index];
-              return ListTile(
-                leading: Text(
-                  '${episode.id}',
-                  style: TextStyle(color: Colors.grey.shade300),
-                ),
-                title: Text(
-                  episode.name,
-                  style: const TextStyle(color: Colors.white),
-                ),
-                subtitle: Text(
-                  episode.airDate,
-                  style: const TextStyle(color: Colors.white30),
-                ),
-              );
-            }),
-          )
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: InfoSection(character: character),
+          ),
+          EpisodesSection(episodes: episodes)
         ]),
       ),
+    );
+  }
+}
+
+class EpisodesSection extends StatelessWidget {
+  const EpisodesSection({
+    Key? key,
+    required this.episodes,
+  }) : super(key: key);
+
+  final List<Episode> episodes;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: episodes.length,
+      itemBuilder: ((context, index) {
+        final episode = episodes[index];
+        return ListTile(
+          leading: Text(
+            '${episode.id}',
+            style: TextStyle(color: Colors.grey.shade300),
+          ),
+          title: Text(
+            episode.name,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          subtitle: Text(
+            episode.airDate,
+            style: TextStyle(color: Colors.grey.shade300),
+          ),
+        );
+      }),
     );
   }
 }

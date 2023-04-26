@@ -31,8 +31,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: const Color.fromRGBO(39, 43, 51, 1),
+            primary: const Color.fromRGBO(32, 35, 40, 1),
           ),
+          scaffoldBackgroundColor: const Color.fromRGBO(39, 43, 51, 1),
+          progressIndicatorTheme:
+              const ProgressIndicatorThemeData(color: Colors.white),
         ),
         home: const SplashPage(),
       ),

@@ -42,14 +42,11 @@ class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black12.withOpacity(0.2),
       body: Consumer<CharacterProvider>(
         builder: (BuildContext context, value, child) {
           if (value.isLoading) {
             return const Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.white,
-              ),
+              child: CircularProgressIndicator(),
             );
           }
 
@@ -80,9 +77,7 @@ class _ListPageState extends State<ListPage> {
                     ),
                     child: Center(
                       child: value.hasMoreData
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
+                          ? const CircularProgressIndicator()
                           : const Text(
                               'No more items to load',
                               style: TextStyle(color: Colors.white),

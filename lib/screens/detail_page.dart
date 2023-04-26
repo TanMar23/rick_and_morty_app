@@ -36,7 +36,6 @@ class _DetailPageState extends State<DetailPage> {
     final CharacterProvider provider = Provider.of<CharacterProvider>(context);
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(32, 35, 41, 1),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -59,9 +58,7 @@ class _DetailPageState extends State<DetailPage> {
         builder: (BuildContext context, value, child) {
           if (value.isLoadingEpisodes) {
             return const Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.white,
-              ),
+              child: CircularProgressIndicator(),
             );
           }
           return Column(
