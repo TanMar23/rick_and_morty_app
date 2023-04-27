@@ -1,16 +1,17 @@
-# rick_and_morty_provider
+# Rick and Morty App
 
-A new Flutter project.
+A Flutter app using the [Rick and Morty API](https://rickandmortyapi.com/) to fetch and display the characters of the series.
 
-## Getting Started
+The app consists of a List Page and a Detail Page
 
-This project is a starting point for a Flutter application.
+Favorites are stored using shared preferences
 
-A few resources to get you started if this is your first Flutter project:
+https://user-images.githubusercontent.com/53623817/234732561-89f8d673-f385-483f-9b78-6a3f5ea32172.mp4
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+### Execute the following commands to run project:
+
+- flutter pub get
+
+- flutter pub run build_runner build --delete-conflicting-outputs
