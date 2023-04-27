@@ -16,12 +16,18 @@ class CircleAvatarImg extends StatelessWidget {
     return Stack(
       alignment: AlignmentDirectional.center,
       children: [
-        CircleAvatar(
-          backgroundColor: UiUtils.getStatusColor(status: status),
-          radius: 104,
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width * 0.5,
+            maxHeight: MediaQuery.of(context).size.width * 0.5,
+          ),
           child: CircleAvatar(
-            backgroundImage: NetworkImage(img),
-            radius: 100,
+            backgroundColor: UiUtils.getStatusColor(status: status),
+            radius: 80,
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(img),
+              radius: 77,
+            ),
           ),
         ),
         Positioned(

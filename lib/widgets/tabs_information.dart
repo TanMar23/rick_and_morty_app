@@ -143,19 +143,29 @@ TableRow getTableRow({
   return TableRow(
     children: [
       Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(children: [
           Icon(
             icon,
             color: Colors.grey,
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 12),
           Text(title),
         ]),
       ),
-      Text(
-        description,
-        style: Theme.of(context).textTheme.subtitle1,
+      Flex(
+        direction: Axis.horizontal,
+        children: [
+          Flexible(
+            child: Text(
+              description,
+              style: Theme.of(context).textTheme.subtitle1,
+              overflow: TextOverflow.fade,
+              softWrap: false,
+              maxLines: 1,
+            ),
+          ),
+        ],
       ),
     ],
   );

@@ -32,12 +32,12 @@ class CardItem extends StatelessWidget {
             onPressed();
           },
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.26,
-                  maxHeight: MediaQuery.of(context).size.width * 0.26,
+                  maxWidth: MediaQuery.of(context).size.width * 0.25,
+                  maxHeight: MediaQuery.of(context).size.width * 0.25,
                 ),
                 child: Container(
                   height: 130,
@@ -77,72 +77,85 @@ class CardItem extends StatelessWidget {
                   ]),
                 ),
               ),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Flex(
-                          direction: Axis.horizontal,
-                          children: [
-                            Flexible(
-                              child: Text(
-                                character.name,
-                                style: Theme.of(context).textTheme.headline2,
-                                overflow: TextOverflow.fade,
-                                softWrap: false,
-                                maxLines: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      IconButton(
-                        splashRadius: 20,
-                        onPressed: () {
-                          provider.toggleFav(id: character.id.toString());
-                        },
-                        icon: provider.isFav(character.id.toString())
-                            ? const Icon(
-                                Icons.favorite,
-                                color: Colors.red,
-                              )
-                            : const Icon(
-                                Icons.favorite_border,
-                                color: Colors.grey,
-                              ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: Row(
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
                       children: [
-                        Icon(
-                          Icons.circle,
-                          color:
-                              UiUtils.getStatusColor(status: character.status),
-                          size: 12,
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          character.status.substring(0, 1).toUpperCase() +
-                              character.status.substring(1).toLowerCase(),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Flex(
+                            direction: Axis.horizontal,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  character.name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2
+                                      ?.copyWith(
+                                          fontSize: 18 *
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.0026),
+                                  overflow: TextOverflow.fade,
+                                  softWrap: false,
+                                  maxLines: 1,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: Text(
-                      character.species,
+                    const SizedBox(height: 6),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.circle,
+                            color: UiUtils.getStatusColor(
+                                status: character.status),
+                            size: 12,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            character.status.substring(0, 1).toUpperCase() +
+                                character.status.substring(1).toLowerCase(),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 6),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: Text(
+                        character.species,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: IconButton(
+                  splashRadius: 20,
+                  onPressed: () {
+                    provider.toggleFav(id: character.id.toString());
+                  },
+                  icon: provider.isFav(character.id.toString())
+                      ? const Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        )
+                      : const Icon(
+                          Icons.favorite_border,
+                          color: Colors.grey,
+                        ),
+                ),
               ),
             ],
           ),
