@@ -101,7 +101,7 @@ class CardItem extends StatelessWidget {
                                                   .size
                                                   .width *
                                               0.0026),
-                                  overflow: TextOverflow.fade,
+                                  overflow: UiUtils.fade,
                                   softWrap: false,
                                   maxLines: 1,
                                 ),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class UiUtils {
@@ -19,6 +20,7 @@ class UiUtils {
     return colorStatus;
   }
 
+  //TODO: Is this a helper method? Do I need a refactor? https://www.youtube.com/watch?v=IOyq-eTRhvo
   static ThemeData getAppTheme() => ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromRGBO(32, 35, 40, 1),
@@ -77,4 +79,7 @@ class UiUtils {
     }
     return genderIcon;
   }
+
+  static TextOverflow get fade =>
+      kIsWeb ? TextOverflow.ellipsis : TextOverflow.fade;
 }

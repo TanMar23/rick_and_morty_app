@@ -134,6 +134,7 @@ class InfoSection extends StatelessWidget {
   }
 }
 
+//TODO: Is this a helper method? Do I need a refactor? https://www.youtube.com/watch?v=IOyq-eTRhvo
 TableRow getTableRow({
   required String description,
   required IconData? icon,
@@ -160,7 +161,7 @@ TableRow getTableRow({
             child: Text(
               description,
               style: Theme.of(context).textTheme.subtitle1,
-              overflow: TextOverflow.fade,
+              overflow: UiUtils.fade,
               softWrap: false,
               maxLines: 1,
             ),
