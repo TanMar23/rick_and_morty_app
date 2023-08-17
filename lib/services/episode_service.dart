@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-
 import '../models/episode.dart';
 
 class EpisodesService {
-  final dio = Dio();
+  final Dio dio;
+  EpisodesService({required this.dio});
 
   Future<List<Episode>> getEpisodesByCharacter({
     required String getEpisodesList,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rick_and_morty_provider/provider/detail_provider.dart';
 import 'package:rick_and_morty_provider/provider/favorites_provider.dart';
 
 import '../models/character.dart';
+import '../provider/detail_provider.dart';
 import '../widgets/circle_avatar_img.dart';
 
 import '../widgets/tabs_information.dart';

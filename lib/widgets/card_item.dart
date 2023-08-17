@@ -32,7 +32,6 @@ class CardItem extends StatelessWidget {
             onPressed();
           },
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               ConstrainedBox(
                 constraints: BoxConstraints(
@@ -50,7 +49,10 @@ class CardItem extends StatelessWidget {
                     ),
                   ),
                   child: Stack(children: [
-                    Image.network(character.image, fit: BoxFit.fill),
+                    Image.network(
+                      character.image,
+                      fit: BoxFit.fill,
+                    ),
                     Positioned(
                       bottom: 5,
                       right: 5,
@@ -92,15 +94,17 @@ class CardItem extends StatelessWidget {
                               Flexible(
                                 child: Text(
                                   character.name,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2
-                                      ?.copyWith(
-                                          fontSize: 18 *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.0026),
+                                  // TODO: CLEAN CODE
+                                  // style: Theme.of(context)
+                                  //     .textTheme
+                                  //     .headline2
+                                  //     ?.copyWith(
+                                  //         fontSize: 18 *
+                                  //             MediaQuery.of(context)
+                                  //                 .size
+                                  //                 .width *
+                                  //             0.0026),
+                                  style: Theme.of(context).textTheme.headline2,
                                   overflow: UiUtils.fade,
                                   softWrap: false,
                                   maxLines: 1,
