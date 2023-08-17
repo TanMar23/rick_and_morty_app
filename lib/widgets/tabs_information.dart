@@ -62,6 +62,9 @@ class EpisodesSection extends StatelessWidget {
       itemBuilder: ((context, index) {
         final episode = episodes[index];
         return ListTile(
+          onTap: () {
+            _displayBottomSheet(context, episode);
+          },
           leading: Text(
             '${episode.id}',
           ),
@@ -76,6 +79,49 @@ class EpisodesSection extends StatelessWidget {
       }),
     );
   }
+}
+
+void _displayBottomSheet(BuildContext context, Episode episode) {
+  showModalBottomSheet(
+    context: context,
+    backgroundColor: const Color.fromRGBO(59, 62, 67, 1),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(20),
+      ),
+    ),
+    builder: (BuildContext context) {
+      return Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              episode.name,
+              style: Theme.of(context).textTheme.headline2,
+              // textAlign: TextAlign.center,
+            ),
+          ),
+          const Divider(
+            thickness: 1,
+            color: Colors.amber,
+          ),
+          EpisodeInfo(
+            description: episode.episode.substring(1, 3),
+            title: 'Season:',
+          ),
+          EpisodeInfo(
+            description: episode.episode.substring(4, 6),
+            title: 'Episode:',
+          ),
+          EpisodeInfo(
+            description: episode.airDate,
+            title: 'Air Date:',
+          ),
+        ]),
+      );
+    },
+  );
 }
 
 class InfoSection extends StatelessWidget {
@@ -170,4 +216,32 @@ TableRow getTableRow({
       ),
     ],
   );
+}
+
+class EpisodeInfo extends StatelessWidget {
+  const EpisodeInfo({
+    super.key,
+    required this.title,
+    required this.description,
+  });
+
+  final String title;
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title),
+          Text(
+            ' $description',
+            style: Theme.of(context).textTheme.subtitle1,
+          )
+        ],
+      ),
+    );
+  }
 }

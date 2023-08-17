@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty_provider/screens/favorites_page.dart';
 import 'package:rick_and_morty_provider/screens/list_page.dart';
 
-import '../widgets/filter_characters_bottom_sheet.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -13,7 +11,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-
   String _appBarTitle = '';
 
   void _setAppBarTitle() {
@@ -50,20 +47,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: _selectedIndex == 0
-            ? [
-                IconButton(
-                  splashRadius: 20,
-                  onPressed: () {
-                    _displayBottomSheet(context);
-                  },
-                  icon: const Icon(
-                    Icons.filter_list,
-                    color: Colors.white,
-                  ),
-                ),
-              ]
-            : null,
         centerTitle: false,
         title: Text(
           _appBarTitle,
@@ -103,15 +86,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-void _displayBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    builder: (BuildContext context) {
-      return const FilterCharactersBottomSheet();
-    },
-  );
 }
 
 mixin LobbyIndexes {

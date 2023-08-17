@@ -16,11 +16,14 @@ class ListPage extends StatefulWidget {
 class _ListPageState extends State<ListPage> {
   final controller = ScrollController();
 
+  // final provider = getIt<CharacterProvider>();
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         Provider.of<CharacterProvider>(context, listen: false).init();
+        // provider.init();
       },
     );
 
@@ -29,6 +32,7 @@ class _ListPageState extends State<ListPage> {
     controller.addListener(() {
       if (controller.position.maxScrollExtent == controller.offset) {
         Provider.of<CharacterProvider>(context, listen: false).fetchMoreData();
+        // provider.fetchMoreData();
       }
     });
   }

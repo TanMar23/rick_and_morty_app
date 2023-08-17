@@ -1,6 +1,5 @@
 import 'package:rick_and_morty_provider/models/character.dart';
 import 'package:dio/dio.dart';
-import 'package:rick_and_morty_provider/utils/utils.dart';
 
 class CharacterService {
   final Dio dio;
@@ -10,8 +9,9 @@ class CharacterService {
     required int page,
   }) async {
     try {
-      final response =
-          await dio.get('https://rickandmortyapi.com/api/character?page=$page');
+      final response = await dio.get(
+        'https://rickandmortyapi.com/api/character?page=$page',
+      );
 
       if (response.statusCode == 200) {
         List<dynamic> json = response.data['results'];
@@ -54,28 +54,4 @@ class CharacterService {
       throw Exception('Error fetching characters by ids: $e');
     }
   }
-
-  // Future<List<Character>> getCharactersByStatus({
-  //   required int page,
-  //   required Status status,
-  // }) async {
-  //   try {
-  //     final response = await dio.get(
-  //         'https://rickandmortyapi.com/api/character?page=$page&status=unknown');
-
-  //     if (response.statusCode == 200) {
-  //       List<dynamic> json = response.data['results'];
-  //       // List<dynamic> json = response.data;
-  //       print(json);
-  //       List<Character> characters =
-  //           json.map((item) => Character.fromJson(item)).toList();
-  //       return characters;
-  //     } else {
-  //       throw Exception(
-  //           'Error fetching characters by status: ${response.statusCode}');
-  //     }
-  //   } catch (e) {
-  //     throw Exception('Error fetching characters by status: $e');
-  //   }
-  // }
 }

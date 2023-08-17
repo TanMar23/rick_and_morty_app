@@ -37,7 +37,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
       body: Consumer<FavoritesProvider>(
         builder: (BuildContext context, value, child) {
           if (value.favorites.isEmpty) {
-            return const Center(child: Text('Aún no has guardado un favorito'));
+            return const Center(
+                child: Text('You haven\'t saved a favorite yet'));
           }
           return FutureBuilder<List<Character>>(
             future: characterProvider.characterService
@@ -48,7 +49,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Text('No hay personajes favoritos.');
+                return const Text('There is no favorite characters.');
               } else {
                 return ListView.builder(
                   itemCount: value.charactersByIds.length,
