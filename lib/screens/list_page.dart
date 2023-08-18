@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rick_and_morty_provider/features/rick_and_morty_api/data/model/character_model.dart';
 import 'package:rick_and_morty_provider/provider/character_provider.dart';
 
 import '../models/character.dart';
@@ -64,9 +65,12 @@ class _ListPageState extends State<ListPage> {
                 itemCount: value.characters.length + 1,
                 itemBuilder: ((context, index) {
                   if (index < value.characters.length) {
-                    final Character item = value.characters[index];
+                    // final Character item = value.characters[index];
+                    final CharacterModel item = value.characters[index];
                     return CardItem(
                       character: item,
+                      isFavorite: false,
+                      onToggleFav: () {},
                       onPressed: () => Navigator.of(context).push<Character>(
                         MaterialPageRoute<Character>(
                             builder: (BuildContext context) {

@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:rick_and_morty_provider/provider/favorites_provider.dart';
+import 'package:rick_and_morty_provider/features/rick_and_morty_api/data/model/character_model.dart';
 import 'package:rick_and_morty_provider/utils/utils.dart';
-
-import '../models/character.dart';
 
 class CardItem extends StatelessWidget {
   const CardItem({
     super.key,
     required this.character,
     required this.onPressed,
+    required this.onToggleFav,
+    required this.isFavorite,
   });
 
-  final Character character;
+  final CharacterModel character;
   final VoidCallback onPressed;
+  final VoidCallback onToggleFav;
+  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
-    final FavoritesProvider provider = Provider.of<FavoritesProvider>(context);
-
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.94,
       child: Card(
@@ -148,9 +147,9 @@ class CardItem extends StatelessWidget {
                 child: IconButton(
                   splashRadius: 20,
                   onPressed: () {
-                    provider.toggleFav(id: character.id.toString());
+                    onToggleFav();
                   },
-                  icon: provider.isFav(character.id.toString())
+                  icon: isFavorite
                       ? const Icon(
                           Icons.favorite,
                           color: Colors.red,

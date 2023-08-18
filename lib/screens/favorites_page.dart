@@ -31,44 +31,43 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final CharacterProvider characterProvider = getIt<CharacterProvider>();
+    // final CharacterProvider characterProvider = getIt<CharacterProvider>();
 
     return Scaffold(
       body: Consumer<FavoritesProvider>(
         builder: (BuildContext context, value, child) {
-          if (value.favorites.isEmpty) {
-            return const Center(
-                child: Text('You haven\'t saved a favorite yet'));
-          }
-          return FutureBuilder<List<Character>>(
-            future: characterProvider.characterService
-                .getCharactersByIds(ids: value.favorites),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Text('There is no favorite characters.');
-              } else {
-                return ListView.builder(
-                  itemCount: value.charactersByIds.length,
-                  itemBuilder: ((context, index) {
-                    final Character item = value.charactersByIds[index];
-                    return CardItem(
-                      character: item,
-                      onPressed: () => Navigator.of(context).push<Character>(
-                        MaterialPageRoute<Character>(
-                            builder: (BuildContext context) {
-                          return DetailPage(character: item);
-                        }),
-                      ),
-                    );
-                  }),
-                );
-              }
-            },
-          );
+          // if (value.favorites.isEmpty) {
+          return const Center(child: Text('You haven\'t saved a favorite yet'));
+          // }
+          // return FutureBuilder<List<Character>>(
+          //   future: characterProvider.characterService
+          //       .getCharactersByIds(ids: value.favorites),
+          //   builder: (context, snapshot) {
+          //     if (snapshot.connectionState == ConnectionState.waiting) {
+          //       return const Center(child: CircularProgressIndicator());
+          //     } else if (snapshot.hasError) {
+          //       return Text('Error: ${snapshot.error}');
+          //     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          //       return const Text('There is no favorite characters.');
+          //     } else {
+          //       return ListView.builder(
+          //         itemCount: value.charactersByIds.length,
+          //         itemBuilder: ((context, index) {
+          //           final Character item = value.charactersByIds[index];
+          //           return CardItem(
+          //             character: item,
+          //             onPressed: () => Navigator.of(context).push<Character>(
+          //               MaterialPageRoute<Character>(
+          //                   builder: (BuildContext context) {
+          //                 return DetailPage(character: item);
+          //               }),
+          //             ),
+          //           );
+          //         }),
+          //       );
+          //     }
+          //   },
+          // );
         },
       ),
     );

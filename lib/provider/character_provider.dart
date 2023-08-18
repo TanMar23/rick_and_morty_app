@@ -1,45 +1,53 @@
 import 'package:flutter/foundation.dart';
-import 'package:rick_and_morty_provider/models/character.dart';
-import 'package:rick_and_morty_provider/services/character_service.dart';
+import 'package:rick_and_morty_provider/features/rick_and_morty_api/data/model/character_model.dart';
+import 'package:rick_and_morty_provider/features/rick_and_morty_api/domain/rick_and_morty_repository.dart';
 
 class CharacterProvider extends ChangeNotifier {
-  final CharacterService characterService;
+  // CharacterProvider({required this.characterService});
+  CharacterProvider({
+    required rickAndMortyRepository,
+  }) : _rickAndMortyRepository = rickAndMortyRepository;
 
-  List<Character> _characters = [];
-  List<Character> get characters => _characters;
+  // final CharacterService characterService;
+  final RickAndMortyRepository _rickAndMortyRepository;
+
+  // List<Character> _characters = [];
+  List<CharacterModel> _characters = [];
+
+  // List<Character> get characters => _characters;
+  List<CharacterModel> get characters => _characters;
+
   bool isLoading = false;
   bool isBottomLoading = false;
   bool hasMoreData = true;
   int page = 1;
 
-  CharacterProvider({required this.characterService});
-
   void init() {
     isLoading = true;
     notifyListeners();
-    getCharacters();
+    // getCharacters();
   }
 
-  void getCharacters() async {
-    final characterList = await characterService.getCharacters(
-      page: page,
-    );
+  // void getCharacters() async {
+  //   final characterList = await _rickAndMortyRepository.getCharacters(
+  //     page: page,
+  //   );
 
-    if (characterList.length < 20) {
-      hasMoreData = false;
-    }
-    _characters = [..._characters, ...characterList];
-    page++;
+  //   if (characterList.length < 20) {
+  //     hasMoreData = false;
+  //   }
+  //   _characters = [..._characters, ...characterList];
+  //   page++;
 
-    isLoading = false;
-    isBottomLoading = false;
-    notifyListeners();
-  }
+  //   isLoading = false;
+  //   isBottomLoading = false;
+  //   notifyListeners();
+  // }
 
   void fetchMoreData() {
     isBottomLoading = true;
     notifyListeners();
-    getCharacters();
+    // getCharacters();
   }
 
   Future<void> onRefresh() async {
@@ -48,6 +56,6 @@ class CharacterProvider extends ChangeNotifier {
     _characters.clear();
     notifyListeners();
 
-    getCharacters();
+    // getCharacters();
   }
 }

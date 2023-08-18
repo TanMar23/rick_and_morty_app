@@ -20,7 +20,6 @@ class UiUtils {
     return colorStatus;
   }
 
-  //TODO: Is this a helper method? Do I need a refactor? https://www.youtube.com/watch?v=IOyq-eTRhvo
   static ThemeData getAppTheme() => ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromRGBO(32, 35, 40, 1),

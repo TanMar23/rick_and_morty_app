@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_provider/models/episode.dart';
+import 'package:rick_and_morty_provider/features/rick_and_morty_api/data/model/character_model.dart';
+import 'package:rick_and_morty_provider/features/rick_and_morty_api/data/model/episode_model.dart';
 import 'package:rick_and_morty_provider/utils/utils.dart';
-
-import '../models/character.dart';
 
 class TabsInformation extends StatelessWidget {
   const TabsInformation({
@@ -11,8 +10,8 @@ class TabsInformation extends StatelessWidget {
     required this.episodes,
   });
 
-  final Character character;
-  final List<Episode> episodes;
+  final CharacterModel character;
+  final List<EpisodeModel> episodes;
 
   static const List<Tab> myTabs = <Tab>[
     Tab(text: 'About'),
@@ -53,7 +52,7 @@ class EpisodesSection extends StatelessWidget {
     required this.episodes,
   }) : super(key: key);
 
-  final List<Episode> episodes;
+  final List<EpisodeModel> episodes;
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +80,7 @@ class EpisodesSection extends StatelessWidget {
   }
 }
 
-void _displayBottomSheet(BuildContext context, Episode episode) {
+void _displayBottomSheet(BuildContext context, EpisodeModel episode) {
   showModalBottomSheet(
     context: context,
     backgroundColor: const Color.fromRGBO(59, 62, 67, 1),
@@ -99,7 +98,6 @@ void _displayBottomSheet(BuildContext context, Episode episode) {
             child: Text(
               episode.name,
               style: Theme.of(context).textTheme.headline2,
-              // textAlign: TextAlign.center,
             ),
           ),
           const Divider(
@@ -130,7 +128,7 @@ class InfoSection extends StatelessWidget {
     required this.character,
   });
 
-  final Character character;
+  final CharacterModel character;
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +178,6 @@ class InfoSection extends StatelessWidget {
   }
 }
 
-//TODO: Is this a helper method? Do I need a refactor? https://www.youtube.com/watch?v=IOyq-eTRhvo
 TableRow getTableRow({
   required String description,
   required IconData? icon,

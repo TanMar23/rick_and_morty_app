@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_provider/features/rick_and_morty_api/data/model/character_model.dart';
-import 'package:rick_and_morty_provider/provider/favorites_provider.dart';
 
-import '../models/character.dart';
-import '../provider/detail_provider.dart';
-import '../widgets/circle_avatar_img.dart';
-
-import '../widgets/tabs_information.dart';
+import '../../../../../widgets/circle_avatar_img.dart';
+import '../../../../../widgets/tabs_information.dart';
+import '../cubit/detail_cubit.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({
@@ -15,7 +12,6 @@ class DetailPage extends StatefulWidget {
     required this.character,
   });
 
-  // final Character character;
   final CharacterModel character;
 
   @override
@@ -24,19 +20,8 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        Provider.of<DetailProvider>(context, listen: false)
-            .initDetailPage(episodesList: widget.character.episode);
-      },
-    );
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final FavoritesProvider provider = Provider.of<FavoritesProvider>(context);
+    final DetailCubit cubit = context.read();
 
     return Scaffold(
       appBar: AppBar(
@@ -46,9 +31,9 @@ class _DetailPageState extends State<DetailPage> {
           IconButton(
             splashRadius: 20,
             onPressed: () {
-              provider.toggleFav(id: widget.character.id.toString());
+              cubit.toggleFavorite(widget.character.id.toString());
             },
-            icon: provider.isFav(widget.character.id.toString())
+            icon: cubit.isFav(widget.character.id.toString())
                 ? const Icon(
                     Icons.favorite,
                     color: Colors.red,
@@ -57,9 +42,9 @@ class _DetailPageState extends State<DetailPage> {
           ),
         ],
       ),
-      body: Consumer<DetailProvider>(
-        builder: (BuildContext context, value, child) {
-          if (value.isLoadingEpisodes) {
+      body: BlocBuilder<DetailCubit, DetailState>(
+        builder: (context, state) {
+          if (state.isLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
@@ -89,12 +74,12 @@ class _DetailPageState extends State<DetailPage> {
                   ],
                 ),
               ),
-              // Expanded(
-              //   child: TabsInformation(
-              //     character: widget.character,
-              //     episodes: value.episodes,
-              //   ),
-              // ),
+              Expanded(
+                child: TabsInformation(
+                  character: widget.character,
+                  episodes: state.episodesList,
+                ),
+              ),
             ],
           );
         },
