@@ -50,16 +50,8 @@ class FavoritesCubit extends Cubit<FavoritesState> with DisposableCubit {
         .dispose(this);
   }
 
-  // void _init({required List<String> ids}) {
-  //   emit(state.copyWith(isLoading: true));
-  //   if (state.favoritesList.isNotEmpty) {
-  //     getFavoritesList(ids: ids);
-  //   }
-  // }
-
   Future<void> _initialize() async {
     emit(state.copyWith(isLoading: true));
-
     try {
       List<String> favoriteIds =
           _rickAndMortyFavoriteUseCases.getFavoritesIds();
@@ -68,36 +60,6 @@ class FavoritesCubit extends Cubit<FavoritesState> with DisposableCubit {
     } catch (error) {
       emit(state.copyWith(isLoading: false));
     }
-  }
-
-// TODO: CHECAR COMO NO REPETIR ESTOS METODOS
-  // void toggleFavorite(String id) async {
-  //   _rickAndMortyFavoriteUseCases.toggleFavorite(id);
-  // }
-
-  void toggleFavorite(String id) async {
-    _rickAndMortyFavoriteUseCases.toggleFavorite(id);
-
-    _rickAndMortyFavoriteUseCases
-        .getFavoriteCharacters(
-      charactersIds: state.favoritesList
-          .map((character) => character.id.toString())
-          .toList(),
-    )
-        .listen(
-      (List<CharacterModel> favCharacters) {
-        emit(state.copyWith(
-          favoritesList: favCharacters,
-        ));
-      },
-      onError: (_) {},
-      onDone: () {},
-    );
-    print('EMITIENDO NUEVO ESTADO DESDE FAVORITE CUBIT');
-  }
-
-  bool isFav(String id) {
-    return _rickAndMortyFavoriteUseCases.isFav(id);
   }
 }
 

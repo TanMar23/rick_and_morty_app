@@ -5,7 +5,6 @@ import 'package:rick_and_morty_provider/features/rick_and_morty_api/data/model/c
 import 'package:rick_and_morty_provider/features/rick_and_morty_api/domain/rick_and_morty_repository.dart';
 
 import '../../../../../core/presentation/mixins/disposable_cubit.dart';
-import '../../../../rick_and_morty_api/domain/rick_and_morty_favorites_usecases.dart';
 
 part 'character_list_cubit.freezed.dart';
 
@@ -13,14 +12,10 @@ class CharacterListCubit extends Cubit<CharacterListState>
     with DisposableCubit {
   CharacterListCubit({
     required RickAndMortyRepository rickAndMortyRepository,
-    required RickAndMortyFavoriteUseCases rickAndMortyFavoriteUseCases,
-  })  : _rickAndMortyFavoriteUseCases = rickAndMortyFavoriteUseCases,
-        _rickAndMortyRepository = rickAndMortyRepository,
+  })  : _rickAndMortyRepository = rickAndMortyRepository,
         super(CharacterListState()) {
     _init();
   }
-
-  final RickAndMortyFavoriteUseCases _rickAndMortyFavoriteUseCases;
 
   final RickAndMortyRepository _rickAndMortyRepository;
 
@@ -67,44 +62,12 @@ class CharacterListCubit extends Cubit<CharacterListState>
       emit(state.copyWith(hasMoreData: false));
     }
     getCharacters();
-    // TODO: FIX MESSAGE END OF PAGE
-  }
-
-// //  TODO: NECESITO ESTO ACA?? O solo en cubit de favoritos??
-//   Future<void> toggleFavorite(String id) async {
-//     await _rickAndMortyFavoriteUseCases.toggleFavorite(id);
-//   }
-
-  // void toggleFavorite(String id) async {
-  //   await _rickAndMortyFavoriteUseCases.toggleFavorite(id);
-
-  //   // Emit a new state to update the UI
-  //   emit(state.copyWith(
-  //     charactersList: [...state.charactersList], // Copying the list
-  //   ));
-  //   print('EMITIENDO UN NUEVO ESTADO DESDE LIST CUBIT');
-  //   print({state.charactersList});
-  // }
-
-  void toggleFavorite(String id) async {
-    await _rickAndMortyFavoriteUseCases.toggleFavorite(id);
-
-    // Emit a new state with a new instance of the list
-    emit(state.copyWith(
-      charactersList: List.from(state.charactersList),
-    ));
-  }
-
-//  TODO: NECESITO ESTO ACA?? O solo en cubit de favoritos??
-  bool isFav(String id) {
-    return _rickAndMortyFavoriteUseCases.isFav(id);
   }
 
   Future<void> onRefresh() async {
     emit(state.copyWith(
-      hasMoreData: true, page: 1,
-      // TODO: AUN NECESITO ESTO??
-      // _characters.clear();
+      hasMoreData: true,
+      page: 1,
     ));
     getCharacters();
   }

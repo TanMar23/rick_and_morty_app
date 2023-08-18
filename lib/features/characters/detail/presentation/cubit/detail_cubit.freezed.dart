@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$DetailState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<EpisodeModel> get episodesList => throw _privateConstructorUsedError;
+  bool? get isCurrentItemFav => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DetailStateCopyWith<DetailState> get copyWith =>
@@ -30,7 +31,10 @@ abstract class $DetailStateCopyWith<$Res> {
           DetailState value, $Res Function(DetailState) then) =
       _$DetailStateCopyWithImpl<$Res, DetailState>;
   @useResult
-  $Res call({bool isLoading, List<EpisodeModel> episodesList});
+  $Res call(
+      {bool isLoading,
+      List<EpisodeModel> episodesList,
+      bool? isCurrentItemFav});
 }
 
 /// @nodoc
@@ -48,6 +52,7 @@ class _$DetailStateCopyWithImpl<$Res, $Val extends DetailState>
   $Res call({
     Object? isLoading = null,
     Object? episodesList = null,
+    Object? isCurrentItemFav = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -58,6 +63,10 @@ class _$DetailStateCopyWithImpl<$Res, $Val extends DetailState>
           ? _value.episodesList
           : episodesList // ignore: cast_nullable_to_non_nullable
               as List<EpisodeModel>,
+      isCurrentItemFav: freezed == isCurrentItemFav
+          ? _value.isCurrentItemFav
+          : isCurrentItemFav // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -70,7 +79,10 @@ abstract class _$$_DetailStateCopyWith<$Res>
       __$$_DetailStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, List<EpisodeModel> episodesList});
+  $Res call(
+      {bool isLoading,
+      List<EpisodeModel> episodesList,
+      bool? isCurrentItemFav});
 }
 
 /// @nodoc
@@ -86,6 +98,7 @@ class __$$_DetailStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? episodesList = null,
+    Object? isCurrentItemFav = freezed,
   }) {
     return _then(_$_DetailState(
       isLoading: null == isLoading
@@ -96,6 +109,10 @@ class __$$_DetailStateCopyWithImpl<$Res>
           ? _value._episodesList
           : episodesList // ignore: cast_nullable_to_non_nullable
               as List<EpisodeModel>,
+      isCurrentItemFav: freezed == isCurrentItemFav
+          ? _value.isCurrentItemFav
+          : isCurrentItemFav // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -105,7 +122,8 @@ class __$$_DetailStateCopyWithImpl<$Res>
 class _$_DetailState implements _DetailState {
   _$_DetailState(
       {this.isLoading = false,
-      final List<EpisodeModel> episodesList = const <EpisodeModel>[]})
+      final List<EpisodeModel> episodesList = const <EpisodeModel>[],
+      this.isCurrentItemFav})
       : _episodesList = episodesList;
 
   @override
@@ -121,8 +139,11 @@ class _$_DetailState implements _DetailState {
   }
 
   @override
+  final bool? isCurrentItemFav;
+
+  @override
   String toString() {
-    return 'DetailState(isLoading: $isLoading, episodesList: $episodesList)';
+    return 'DetailState(isLoading: $isLoading, episodesList: $episodesList, isCurrentItemFav: $isCurrentItemFav)';
   }
 
   @override
@@ -133,12 +154,14 @@ class _$_DetailState implements _DetailState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality()
-                .equals(other._episodesList, _episodesList));
+                .equals(other._episodesList, _episodesList) &&
+            (identical(other.isCurrentItemFav, isCurrentItemFav) ||
+                other.isCurrentItemFav == isCurrentItemFav));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading,
-      const DeepCollectionEquality().hash(_episodesList));
+      const DeepCollectionEquality().hash(_episodesList), isCurrentItemFav);
 
   @JsonKey(ignore: true)
   @override
@@ -150,12 +173,15 @@ class _$_DetailState implements _DetailState {
 abstract class _DetailState implements DetailState {
   factory _DetailState(
       {final bool isLoading,
-      final List<EpisodeModel> episodesList}) = _$_DetailState;
+      final List<EpisodeModel> episodesList,
+      final bool? isCurrentItemFav}) = _$_DetailState;
 
   @override
   bool get isLoading;
   @override
   List<EpisodeModel> get episodesList;
+  @override
+  bool? get isCurrentItemFav;
   @override
   @JsonKey(ignore: true)
   _$$_DetailStateCopyWith<_$_DetailState> get copyWith =>

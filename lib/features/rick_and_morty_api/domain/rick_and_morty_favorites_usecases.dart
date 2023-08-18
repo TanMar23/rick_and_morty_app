@@ -3,7 +3,6 @@ import 'package:rick_and_morty_provider/features/rick_and_morty_api/domain/rick_
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class RickAndMortyFavoriteUseCases {
-  // ESTE MODELO DEBE SER DE LOS QUE HAY EN DOMAIN?
   Stream<List<CharacterModel>> getFavoriteCharacters({
     required List<String> charactersIds,
   });

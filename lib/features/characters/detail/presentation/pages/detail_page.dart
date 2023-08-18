@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty_provider/core/presentation/favorites/core_favorites_cubit.dart';
 import 'package:rick_and_morty_provider/features/rick_and_morty_api/data/model/character_model.dart';
 
 import '../../../../../widgets/circle_avatar_img.dart';
@@ -21,24 +22,28 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
-    final DetailCubit cubit = context.read();
+    final CoreFavoritesCubit cubit = context.read();
 
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         actions: [
-          IconButton(
-            splashRadius: 20,
-            onPressed: () {
-              cubit.toggleFavorite(widget.character.id.toString());
+          BlocBuilder<CoreFavoritesCubit, CoreFavoritesState>(
+            builder: (BuildContext context, CoreFavoritesState state) {
+              return IconButton(
+                splashRadius: 20,
+                onPressed: () {
+                  cubit.toggleFavorite(widget.character.id.toString());
+                },
+                icon: cubit.isFav(widget.character.id.toString())
+                    ? const Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      )
+                    : const Icon(Icons.favorite_border, color: Colors.white),
+              );
             },
-            icon: cubit.isFav(widget.character.id.toString())
-                ? const Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                  )
-                : const Icon(Icons.favorite_border, color: Colors.white),
           ),
         ],
       ),

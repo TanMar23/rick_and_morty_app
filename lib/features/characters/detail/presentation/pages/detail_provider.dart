@@ -19,7 +19,6 @@ class DetailProvider extends StatelessWidget {
     return BlocProvider<DetailCubit>(
       create: (context) => DetailCubit(
         rickAndMortyRepository: injector.get(),
-        rickAndMortyFavoriteUseCases: injector.get(),
         character: character,
       ),
       child: DetailPage(

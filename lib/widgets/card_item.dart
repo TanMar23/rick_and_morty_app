@@ -93,16 +93,6 @@ class CardItem extends StatelessWidget {
                               Flexible(
                                 child: Text(
                                   character.name,
-                                  // TODO: CLEAN CODE
-                                  // style: Theme.of(context)
-                                  //     .textTheme
-                                  //     .headline2
-                                  //     ?.copyWith(
-                                  //         fontSize: 18 *
-                                  //             MediaQuery.of(context)
-                                  //                 .size
-                                  //                 .width *
-                                  //             0.0026),
                                   style: Theme.of(context).textTheme.headline2,
                                   overflow: UiUtils.fade,
                                   softWrap: false,
@@ -122,7 +112,8 @@ class CardItem extends StatelessWidget {
                           Icon(
                             Icons.circle,
                             color: UiUtils.getStatusColor(
-                                status: character.status),
+                              status: character.status,
+                            ),
                             size: 12,
                           ),
                           const SizedBox(width: 6),
