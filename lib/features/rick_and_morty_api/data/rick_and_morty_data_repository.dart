@@ -18,12 +18,10 @@ class RickAndMortyDataRepository
     int? page,
   }) async* {
     try {
-      final response = await dio.get(
-          // 'https://rickandmortyapi.com/api/character?page=$page',
-          endpointParse('character'),
-          queryParameters: {
-            'page': page,
-          });
+      final response =
+          await dio.get(endpointParse('character'), queryParameters: {
+        'page': page,
+      });
 
       if (response.statusCode == 200) {
         List<dynamic> json = response.data['results'];
@@ -47,9 +45,8 @@ class RickAndMortyDataRepository
         yield [];
         return;
       }
-      final response = await dio
-          // .get('https://rickandmortyapi.com/api/character/${ids.join(",")}');
-          .get(endpointParse('character/${ids.join(",")}'));
+      final response =
+          await dio.get(endpointParse('character/${ids.join(",")}'));
 
       if (response.statusCode == 200) {
         dynamic data = response.data;
